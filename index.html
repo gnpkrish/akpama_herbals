@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 ஏக்கர் பண்ணை - 191/2A மாஸ்டர் சாகுபடித் திட்டம்</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Madurai:wght=300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #1b4332;
+            --secondary: #ffb703;
+            --support: #70e000;
+            --mahogany: #432818;
+            --kadukkai: #854d0e;
+            --thandri: #b45309;
+            --vengai: #155e75;
+            --curry: #db2777;
+            --lemon: #eab308;
+            --bg-sand: #fcfaf7;
+        }
+
+        body {
+            font-family: 'Hind Madurai', sans-serif;
+            background-color: var(--bg-sand);
+            color: #44403c;
+            user-select: none;
+        }
+
+        .canvas-container {
+            background: #ffffff;
+            border: 2px solid #e7e2da;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            min-height: 800px;
+            cursor: grab;
+        }
+
+        .canvas-container:active {
+            cursor: grabbing;
+        }
+
+        .custom-card {
+            background: white;
+            border: 1px solid #e7e5e4;
+            border-radius: 1.5rem;
+        }
+
+        .legend-mark {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 900;
+            color: white;
+            margin-right: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .tab-btn.active {
+            background-color: #1b4332;
+            color: white;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; }
+            .canvas-container { box-shadow: none; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="min-h-screen pb-12">
+        <!-- Header -->
+        <nav class="bg-white/90 backdrop-blur-md border-b border-stone-200 sticky top-0 z-50 shadow-sm">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-[#1b4332] rounded-2xl flex items-center justify-center text-white font-bold text-3xl shadow-xl italic">V</div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-stone-800">3 ஏக்கர் பண்ணை - 191/2A மாஸ்டர் சாகுபடித் திட்டம்</h1>
+                        <p class="text-xs text-stone-500 uppercase tracking-widest font-semibold italic">No Wagon Path Buffer | Triphala &amp; Vengai Border Shield</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 mt-4 md:mt-0 no-print">
+                    <button onclick="resetView()" class="bg-stone-200 text-stone-700 px-5 py-2.5 rounded-full hover:bg-stone-300 transition font-bold text-sm">
+                        Reset View
+                    </button>
+                    <button onclick="window.print()" class="bg-[#1b4332] text-white px-6 py-2.5 rounded-full hover:bg-emerald-900 transition font-bold text-sm shadow-md">
+                        அறிக்கையைச் சேமிக்க (PDF)
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="max-w-7xl mx-auto px-6 mt-10">
+            
+            <!-- Strategic Highlights -->
+            <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-center">
+                <div class="custom-card p-4 border-t-4 border-[#1b4332] shadow-sm">
+                    <p class="text-[10px] text-stone-400 uppercase font-bold mb-1">பயன்பாடு (Utilization)</p>
+                    <h3 class="text-lg font-bold">100% முழுமையான பயன்பாடு</h3>
+                    <p class="text-[10px] text-stone-500">வண்டிப் பாதை பஃபர் நீக்கப்பட்டுள்ளது</p>
+                </div>
+                <div class="custom-card p-4 border-t-4 border-[#70e000] shadow-sm">
+                    <p class="text-[10px] text-stone-400 uppercase font-bold mb-1">மிளகு தாங்கு மரம்</p>
+                    <h3 class="text-lg font-bold">முள் முருங்கை (S)</h3>
+                    <p class="text-[10px] text-stone-500">சொரசொரப்பான பட்டை &amp; மருத்துவ இலை</p>
+                </div>
+                <div class="custom-card p-4 border-t-4 border-[#155e75] shadow-sm">
+                    <p class="text-[10px] text-stone-400 uppercase font-bold mb-1">வேலி பாதுகாப்பு</p>
+                    <h3 class="text-lg font-bold">வேங்கை (V) உள் அடுக்கு</h3>
+                    <p class="text-[10px] text-stone-500">தேக்குக்கு இணையான மதிப்புமிக்க மரம்</p>
+                </div>
+                <div class="custom-card p-4 border-t-4 border-pink-600 shadow-sm">
+                    <p class="text-[10px] text-stone-400 uppercase font-bold mb-1">மின்பாதை சாகுபடி</p>
+                    <h3 class="text-lg font-bold">Curry (C) &amp; Lemon (L)</h3>
+                    <p class="text-[10px] text-stone-500">நெல்லிக்காய் பாதுகாப்புடன் இடமாற்றப்பட்டது</p>
+                </div>
+            </section>
+
+            <!-- Draggable Interactive Canvas -->
+            <section class="mb-10">
+                <div class="bg-white rounded-[2.5rem] p-6 md:p-10 border border-stone-200 shadow-2xl overflow-hidden relative">
+                    <div class="flex flex-col md:flex-row justify-between items-start mb-6 gap-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-stone-800 mb-1">3 ஏக்கர் சாகுபடி வரைபடம் (இழுத்து நகர்த்தக்கூடியது)</h2>
+                            <p class="text-stone-500 italic text-sm leading-relaxed">
+                                எல்லையில் உட்புறத்தில் புங்கத்திற்குப் பதில் **V (வேங்கை மரம்)** கொண்டு வரப்பட்டுள்ளது. வண்டிப்பாதை பஃபர் நீக்கப்பட்டு எல்லையில் இருந்து **4.2 மீட்டர்** தூரத்திலேயே சாகுபடி தொடங்குகிறது. பலா மற்றும் நெல்லிக்காய் நீக்கப்பட்டு முள் முருங்கை (S) மட்டுமே பிரதான தாங்கு மரமாக உள்ளது.
+                            </p>
+                        </div>
+                        <div class="bg-stone-50 px-5 py-3 rounded-2xl flex items-center gap-4 no-print border border-stone-200 shadow-inner z-10">
+                            <span class="text-sm font-bold text-stone-600">Zoom:</span>
+                            <input type="range" id="zoomCtrl" min="0.4" max="1.8" step="0.05" value="0.75" class="accent-[#1b4332] w-32">
+                        </div>
+                    </div>
+                    
+                    <div class="canvas-container" id="canvasBox">
+                        <canvas id="masterCanvas"></canvas>
+                    </div>
+                    
+                    <!-- Color & Code Legend -->
+                    <div class="mt-8 p-6 bg-stone-50 rounded-2xl grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 border border-stone-200 shadow-inner">
+                        <div class="legend-item"><span class="legend-mark bg-[#70e000]">S</span> <span>முள் முருங்கை (Support)</span></div>
+                        <div class="legend-item"><span class="legend-mark bg-[#ffb703] text-stone-900">N</span> <span>ஜாதிக்காய் (Nutmeg)</span></div>
+                        <div class="legend-item"><span class="legend-mark bg-[#db2777]">C</span> <span>கருவேப்பிலை (Curry)</span></div>
+                        <div class="legend-item"><span class="legend-mark bg-[#eab308] text-stone-900">L</span> <span>எலுமிச்சை (Lemon)</span></div>
+                        <div class="legend-item"><span class="legend-mark bg-[#432818]">M</span> <span>மகாகனி (Border)</span></div>
+                        <div class="legend-item"><span class="legend-mark bg-[#854d0e]">K</span> <span>கடுக்காய் (Border)</span></div>
+                        <div class="legend-item"><span class="legend-mark bg-[#b45309]">T</span> <span>தான்றி (Border)</span></div>
+                        <div class="legend-item"><span class="legend-mark bg-[#155e75]">V</span> <span>வேங்கை (Border)</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Information Center (TABS) -->
+            <section class="mb-12 no-print">
+                <div class="bg-white rounded-[2rem] p-6 md:p-10 border border-stone-200 shadow-xl">
+                    <!-- Tab Buttons -->
+                    <div class="flex flex-wrap gap-2 border-b pb-4 mb-8">
+                        <button onclick="switchTab('tab-planting')" id="btn-planting" class="tab-btn active px-6 py-3 rounded-full text-sm font-bold transition hover:bg-stone-100">சாகுபடி &amp; வடிவமைப்பு</button>
+                        <button onclick="switchTab('tab-timeline')" id="btn-timeline" class="tab-btn px-6 py-3 rounded-full text-sm font-bold transition hover:bg-stone-100">நடவு கால அட்டவணை (Timeline)</button>
+                        <button onclick="switchTab('tab-organic')" id="btn-organic" class="tab-btn px-6 py-3 rounded-full text-sm font-bold transition hover:bg-stone-100">இயற்கை விவசாய நுட்பங்கள்</button>
+                        <button onclick="switchTab('tab-powerline')" id="btn-powerline" class="tab-btn px-6 py-3 rounded-full text-sm font-bold transition hover:bg-stone-100">மின்பாதை &amp; பாதுகாப்பு</button>
+                        <button onclick="switchTab('tab-valueaddition')" id="btn-valueaddition" class="tab-btn px-6 py-3 rounded-full text-sm font-bold transition hover:bg-stone-100 text-emerald-800">மதிப்புக் கூட்டுதல் (Business)</button>
+                        <button onclick="switchTab('tab-financials')" id="btn-financials" class="tab-btn px-6 py-3 rounded-full text-sm font-bold transition hover:bg-stone-100">பட்ஜெட் &amp; வருவாய்</button>
+                    </div>
+
+                    <!-- Tab 1 Content: Planting & Layout -->
+                    <div id="tab-planting" class="tab-content space-y-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                            <!-- Left: Spacing & marking -->
+                            <div class="lg:col-span-7 space-y-6">
+                                <h3 class="text-xl font-bold text-[#1b4332] mb-2">துல்லியமான அதி-அடர்த்தி வடிவமைப்பு (No Wagon Road)</h3>
+                                <p class="text-stone-600 text-sm leading-relaxed mb-4">
+                                    நிலப்பரப்பு முழுவதையும் 100% சாகுபடிக்கு உகந்ததாக மாற்ற வண்டிப் பாதை பஃபர் நீக்கப்பட்டுள்ளது. எல்லையோர 3 அடுக்கு கவசத்தின் கடைசி வரிசையான <strong>வேங்கை (V)</strong> மரத்திலிருந்து <strong>4.2 மீட்டர் (4.2m)</strong> தூரத்திலேயே சாகுபடிப் பரப்பு நேரடியாகத் தொடங்குகிறது:
+                                </p>
+
+                                <div class="space-y-4">
+                                    <!-- Step 1 -->
+                                    <div class="p-5 bg-emerald-50 rounded-2xl border border-emerald-100 flex gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-[#70e000] text-[#1b4332] flex items-center justify-center font-bold text-lg shrink-0">Row 1</div>
+                                        <div>
+                                            <h4 class="font-bold text-emerald-950 text-base">முதன்மை வரிசை (முள் முருங்கை S)</h4>
+                                            <p class="text-xs text-stone-600 leading-relaxed mt-1">
+                                                * 3.0 மீட்டர் (10 அடி) இடைவெளியில் முள் முருங்கை <strong>(S)</strong> மரங்களை நட்டுக் கொண்டே செல்லவும்.<br>
+                                                * <strong>முள் முருங்கை (S):</strong> சொரசொரப்பான பட்டை கொண்டதால் மிளகு கொடிகள் நழுவாமல் ஏறுவதற்கு சிறந்த இயற்கைத் தூணாகச் செயல்படும். இதன் இலைகள் சித்த மருத்துவத் தேவைக்கும் ஆட்டுத் தீவனத்திற்கும் உகந்தது.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 2 -->
+                                    <div class="p-5 bg-amber-50 rounded-2xl border border-amber-100 flex gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-[#ffb703] text-stone-900 flex items-center justify-center font-bold text-lg shrink-0">Row 2</div>
+                                        <div>
+                                            <h4 class="font-bold text-amber-900 text-base">ஊடு வரிசை (ஜாதிக்காய் N)</h4>
+                                            <p class="text-xs text-stone-600 leading-relaxed mt-1">
+                                                * முதன்மை வரிசையிலிருந்து 4.2 மீட்டர் தள்ளி இரண்டாவது வரிசையை அமைக்கவும்.<br>
+                                                * <strong>அறுகோண முறை:</strong> முதல் வரிசையின் மரங்களுக்கு நேர் நடுவில் (1.5மீ தள்ளி) ஜாதிக்காய் <strong>(N)</strong> கன்றுகளை நட வேண்டும்.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right: Layout Spacing details -->
+                            <div class="lg:col-span-5 space-y-6">
+                                <h3 class="text-lg font-bold text-[#432818] mb-3">கள அளவீட்டு வழிகாட்டி (எல்லை முதல் சாகுபடி வரை)</h3>
+                                <p class="text-stone-600 text-sm leading-relaxed mb-4">
+                                    நிலத்தில் குறியிட இந்தத் தூர அளவுகளைப் பயன்படுத்தவும்:
+                                </p>
+                                <ul class="space-y-3 text-sm text-stone-600">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-emerald-700 font-bold shrink-0">● 1.5 மீட்டர்:</span> 
+                                        <span>எல்லையிலிருந்து தள்ளி முதல் மகாகனி (M) மரங்களை நட வேண்டும்.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-emerald-700 font-bold shrink-0">● 2.8 மீட்டர்:</span> 
+                                        <span>எல்லையோர அடுக்கு இடைவெளி (M <-> K/T மற்றும் K/T <-> V).</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-[#ffb703] font-bold shrink-0">● 4.2 மீட்டர்:</span> 
+                                        <span>வேங்கை (V) மரத்திலிருந்து முதல் சாகுபடி வரிசை தொடங்கும் இடைவெளி (4.2m Crop Gap).</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-[#ffb703] font-bold shrink-0">● 3.0 மீட்டர்:</span> 
+                                        <span>சாகுபடி வரிசைக்குள் மரங்களுக்கு இடையே இருக்க வேண்டிய தூரம்.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2 Content: Planting Timeline -->
+                    <div id="tab-timeline" class="tab-content hidden space-y-6">
+                        <div class="p-5 bg-amber-50/70 border border-amber-200 rounded-2xl mb-2">
+                            <h4 class="text-lg font-bold text-amber-900 flex items-center gap-2 mb-2">
+                                <span>⚠️</span> அதிமுக்கிய விதி: ஜாதிக்காய் நிழல் இல்லாமல் வளரவே முடியாது!
+                            </h4>
+                            <p class="text-sm text-stone-700 leading-relaxed">
+                                ஜாதிக்காய் (*Nutmeg*) இயற்கையிலேயே அடர்ந்த காடுகளில் வளரும் தாவரமாகும். அதன் இளம் பருவத்தில் (முதல் 3-4 வருடங்கள்) 50% முதல் 75% வரை நிழல் கண்டிப்பாகத் தேவை. விருதுநகரின் கடுமையான கோடை வெயில் ஜாதிக்காயை முற்றிலுமாக அழித்துவிடும். எனவே, **தாங்கு/நிழல் மரங்கள் நட்டு உரிய நிழல் உருவான பின்பே ஜாதிக்காயை நட வேண்டும்.**
+                            </p>
+                        </div>
+
+                        <!-- Special Box for Temporary Shade Tree Distance & Direction -->
+                        <div class="p-6 bg-[#1b4332]/5 border border-[#1b4332]/20 rounded-2xl">
+                            <h4 class="text-lg font-bold text-[#1b4332] flex items-center gap-2 mb-3">
+                                <span>🌳</span> தற்காலிக நிழல் பயிர் - துல்லியமான இடைவெளி &amp; திசை
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-stone-700">
+                                <div class="space-y-3">
+                                    <h5 class="font-bold text-stone-900">1. கன்றுகளின் நடும் இடைவெளி (Exact Distance):</h5>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li><strong>அகத்தி (Agathi):</strong> ஜாதிக்காய் குழியிலிருந்து சரியாக **1.0 மீட்டர் (3 அடி)** தூரம் தள்ளி நட வேண்டும். (வேர்கள் ஜாதிக்காயுடன் போட்டியிடாது).</li>
+                                        <li><strong>வாழை (Banana):</strong> ஜாதிக்காய் குழியிலிருந்து சரியாக **1.2 முதல் 1.5 மீட்டர் (4 முதல் 5 அடி)** தூரம் தள்ளி நட வேண்டும். (வாழையின் கிழங்குப்பகுதி ஜாதிக்காயின் ஈரப்பதத்தை உறிஞ்சாமல் தடுக்கிறது).</li>
+                                    </ul>
+                                </div>
+                                <div class="space-y-3">
+                                    <h5 class="font-bold text-stone-900">2. நட வேண்டிய திசை (Crucial South-West Direction):</h5>
+                                    <p class="leading-relaxed">
+                                        நிழல் பயிர்களை எப்போதுமே ஜாதிக்காய் குழியின் **தென்-மேற்கு (South-West) அல்லது மேற்கு (West)** திசையில் மட்டுமே நட வேண்டும். 
+                                    </p>
+                                    <p class="text-xs text-amber-800 font-bold leading-relaxed">
+                                        *காரணம்:* விருதுநகரின் மிகவும் கொடிய, சுட்டெரிக்கும் உச்சி வெயிலும் மற்றும் மாலை வெயிலும் (12 PM - 4 PM) தென்மேற்கு திசையில் இருந்துதான் தாக்குகிறது. இந்தத் திசையில் நடும்போது மட்டுமே நிழல் ஒரு கவசம் போல ஜாதிக்காய் மேல் விழும்.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <!-- Phase 1 -->
+                            <div class="p-6 bg-stone-50 rounded-2xl border border-stone-200">
+                                <h4 class="font-bold text-[#1b4332] mb-3 flex items-center gap-2">
+                                    <span class="bg-[#1b4332] text-white w-6 h-6 rounded-full inline-flex items-center justify-center text-xs">1</span> 
+                                    <span>தயாரிப்பு (ஏப்ரல் - ஜூன்)</span>
+                                </h4>
+                                <ul class="space-y-3 text-xs text-stone-600 leading-relaxed">
+                                    <li><strong>குழிகள் எடுத்தல் (ஏப்ரல்):</strong> 2x2x2 அடி அளவில் குழிகளை வெட்டி வெயிலில் காயவிட வேண்டும் (Soil Solarization). இது தீமை செய்யும் பூஞ்சணங்களை இயற்கை முறையில் அழிக்கும்.</li>
+                                    <li><strong>குழி நிரப்புதல் (ஜூன்):</strong> ஒவ்வொரு குழிக்கும் 10 கிலோ தொழு உரம், 1 கிலோ வேப்பம் புண்ணாக்கு மற்றும் 50 கிராம் **டிரைக்கோடெர்மா விரிடி** கலந்து நிரப்ப வேண்டும்.</li>
+                                </ul>
+                            </div>
+                            <!-- Phase 2 -->
+                            <div class="p-6 bg-stone-50 rounded-2xl border border-stone-200">
+                                <h4 class="font-bold text-[#1b4332] mb-3 flex items-center gap-2">
+                                    <span class="bg-[#1b4332] text-white w-6 h-6 rounded-full inline-flex items-center justify-center text-xs">2</span> 
+                                    <span>நிழல், வேலி &amp; தற்காலிக நிழல் நடவு (ஜூலை - ஆகஸ்ட்)</span>
+                                </h4>
+                                <p class="text-[11px] text-amber-800 font-bold mb-2">★ இவைகளைத் தான் முதலில் நட வேண்டும்!</p>
+                                <ul class="space-y-3 text-xs text-stone-600 leading-relaxed">
+                                    <li><strong>எல்லை வேலி:</strong> மகாகனி (M), கடுக்காய் (K), தான்றி (T) மற்றும் வேங்கை (V) கன்றுகளை தென்மேற்கு பருவமழை தொடக்கத்தில் நட வேண்டும்.</li>
+                                    <li><strong>முதன்மைத் தூண்கள் &amp; நிழல்:</strong> உட்புற முள் முருங்கை (S) மரங்களை நடவும். முள் முருங்கை 2-3 மாதங்களில் மிக வேகமாகத் தழைக்கும்.</li>
+                                    <li><strong>தற்காலிக நிழல் பயிர்:</strong> மேலே குறிப்பிட்டுள்ளபடி ஜாதிக்காய் குழிகளுக்கு தென்மேற்கே 1 மீட்டர் தள்ளி அகத்தி விதைகள் அல்லது 1.2 மீட்டர் தள்ளி வாழைக்கன்றுகளை உடனே நட்டுவிட வேண்டும்.</li>
+                                </ul>
+                            </div>
+                            <!-- Phase 3 -->
+                            <div class="p-6 bg-stone-50 rounded-2xl border border-stone-200">
+                                <h4 class="font-bold text-[#1b4332] mb-3 flex items-center gap-2">
+                                    <span class="bg-[#1b4332] text-white w-6 h-6 rounded-full inline-flex items-center justify-center text-xs">3</span> 
+                                    <span>முதன்மைப் பயிர்கள் (அக்டோபர் - நவம்பர்)</span>
+                                </h4>
+                                <p class="text-[11px] text-emerald-800 font-bold mb-2">★ முள் முருங்கை 5 அடி (1.5மீ) மற்றும் வாழை நிழல் கிடைத்த பின்!</p>
+                                <ul class="space-y-3 text-xs text-stone-600 leading-relaxed">
+                                    <li><strong>ஜாதிக்காய் (N) நடவு:</strong> முள் முருங்கை மற்றும் வாழை நிழல் தந்து, வடகிழக்கு பருவமழை குளிர்ந்த சூழலைத் தரும்போது அக்டோபரில் ஜாதிக்காய் நடவும்.</li>
+                                    <li><strong>கருமிளகு நடவு:</strong> முள் முருங்கை (S) மரங்களின் வடகிழக்கு பக்கத்தில் மிளகுக் கொடிகளை நடவும். மழைக் காலத்தின் அதிக ஈரப்பதம் வேர் வேகமாகப் பிடிக்க உதவும்.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3 Content: Organic Techniques -->
+                    <div id="tab-organic" class="tab-content hidden space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="p-6 bg-stone-50 rounded-2xl border border-stone-200">
+                                <h4 class="font-bold text-[#1b4332] mb-3 flex items-center gap-2"><span>🌱</span> இயற்கை உரங்கள்</h4>
+                                <ul class="space-y-3 text-xs text-stone-600 leading-relaxed">
+                                    <li><strong>ஜீவாமிர்தம்:</strong> 200 லிட்டர் தண்ணீரில் 10 கிலோ சாணம், 10 லிட்டர் கோமியம், 2 கிலோ வெல்லம், 2 கிலோ பயறு மாவு கலந்து தயாரித்து மாதம் ஒருமுறை சொட்டுநீரில் வழங்கவும்.</li>
+                                    <li><strong>தழையுரம்:</strong> வேங்கை மற்றும் முள் முருங்கை இலைகளைக் கத்தரித்து வேர் பகுதியில் போடுவதன் மூலம் மண்ணுக்கு இயற்கை தழைச்சத்து (Nitrogen) கிடைக்கும்.</li>
+                                    <li><strong>மண்ணின் வளம்:</strong> வேங்கை வேர்களின் நைட்ரஜன் நிலைநிறுத்தல் ஆற்றலானது மண்ணின் நுண்ணுயிர் பெருக்கத்திற்கு மிகச் சிறந்த அடித்தளமாக அமையும்.</li>
+                                </ul>
+                            </div>
+                            <div class="p-6 bg-stone-50 rounded-2xl border border-stone-200">
+                                <h4 class="font-bold text-[#1b4332] mb-3 flex items-center gap-2"><span>🛡️</span> நோய் &amp; பூச்சி மேலாண்மை</h4>
+                                <ul class="space-y-3 text-xs text-stone-600 leading-relaxed">
+                                    <li><strong>வாடல் நோய் தடுப்பு (Quick Wilt):</strong> மிளகின் வேர்ப்பகுதியில் 6 மாதத்திற்கு ஒருமுறை 50 கிராம் **டிரைக்கோடெர்மா விரிடி (Trichoderma Viride)** பூஞ்சணத்தை தொழுஉரத்துடன் கலந்து இடவும்.</li>
+                                    <li><strong>அக்னி அஸ்திரம்:</strong> இலைப்பேன் மற்றும் அசுவினித் தாக்குதலுக்கு இஞ்சி-பூண்டு-மிளகாய் கரைசலைத் தெளிக்கவும்.</li>
+                                </ul>
+                            </div>
+                            <div class="p-6 bg-stone-50 rounded-2xl border border-stone-200">
+                                <h4 class="font-bold text-[#1b4332] mb-3 flex items-center gap-2"><span>🌾</span> களை &amp; ஈரப்பதம்</h4>
+                                <ul class="space-y-3 text-xs text-stone-600 leading-relaxed">
+                                    <li><strong>மூடாக்கு (Mulching):</strong> கடுக்காய், தான்றி மற்றும் மகாகனி இலைகளைக் கொண்டு செடியைச் சுற்றி 3 அடி சுற்றளவிற்கு 15 செ.மீ தடிமனில் இலைகளைப் பரப்பி மண்ணின் ஈரப்பதத்தைக் காக்கவும்.</li>
+                                    <li><strong>உயிருள்ள மூடாக்கு:</strong> மரங்களுக்கு இடையில் உள்ள காலியிடங்களில் தட்டைப்பயறு அல்லது கொழுஞ்சி பயிரிடவும்.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4 Content: Powerline Safe Zone -->
+                    <div id="tab-powerline" class="tab-content hidden space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-lg font-bold text-pink-600 mb-3 flex items-center gap-2"><span>⚡</span> மின்பாதை சாகுபடி உத்தி (Power Line Safe Strategy)</h3>
+                                <p class="text-stone-600 text-sm leading-relaxed mb-4">
+                                    பண்ணையின் குறுக்கே வளைந்து செல்லும் மின்சாரக் கம்பிகளின் (NE to SW) அடியில் உயரமாக வளரும் முள் முருங்கை மற்றும் ஜாதிக்காய் மரங்களைத் தடுத்து, அதற்குப் பதிலாக குட்டையான, அதிக லாபம் தரக்கூடிய மற்றும் கத்தரிக்கத் தகுந்த **கருவேப்பிலை (C)** மற்றும் **எலுமிச்சை (L)** மரங்களை நட்டுள்ளோம்.
+                                </p>
+                                <div class="p-4 bg-pink-50 rounded-2xl border border-pink-100 space-y-3">
+                                    <h4 class="font-bold text-pink-800 text-xs uppercase">மின்பாதை பகுதியில் பயிரிடப்பட்டுள்ள கலப்பு பயிர்கள்:</h4>
+                                    <ul class="list-disc pl-5 text-xs text-pink-700 space-y-2">
+                                        <li><strong>கருவேப்பிலை (Curry Leaves - C):</strong> குட்டையான புதர் வகை, வறட்சியைத் தாங்கும், வாராந்திர நேரடி வருமானம் தரும்.</li>
+                                        <li><strong>எலுமிச்சை (Lemon - L):</strong> PKM-1 ஒட்டு ரகம். அதிக சூரிய ஒளியை விரும்புதால் மின்பாதை அடியில் மிகச் சிறப்பாகக் காய்க்கும்.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-[#155e75] mb-3">நீர் மற்றும் வடிகால் மேலாண்மை (Water Drainage)</h3>
+                                <p class="text-stone-600 text-sm leading-relaxed mb-4">
+                                    விருதுநகர் மாவட்டத்தின் பருவமழை காலங்களில் ஜாதிக்காய் மற்றும் மிளகின் வேர்களில் தண்ணீர் தேங்குவது வேர் அழுகல் நோயை உண்டாக்கும்.
+                                </p>
+                                <ul class="space-y-3 text-sm text-stone-600">
+                                    <li><strong>மேடு நடவு (Mound Planting):</strong> அனைத்து செடிகளையும் சமமான குழியில் நடாமல், 15 செ.மீ உயர்த்தப்பட்ட மண் மேட்டில் நடவும்.</li>
+                                    <li><strong>V-வடிகால் (V-Drains):</strong> ஒவ்வொரு இரண்டு வரிசை மரங்களுக்கு இடையே 1.5 அடி ஆழமுள்ள லேசான V-வடிவ வடிகால் கால்வாய்களை அமைக்கவும்.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 5 Content: Value Addition (Business) -->
+                    <div id="tab-valueaddition" class="tab-content hidden space-y-8">
+                        <div class="bg-gradient-to-r from-emerald-900 to-teal-950 p-6 rounded-3xl text-white shadow-xl mb-6">
+                            <h3 class="text-xl md:text-2xl font-bold mb-2 flex items-center gap-3">
+                                <span class="text-3xl">🚀</span> வேளாண் தொழில்முனைவோர் உத்திகள் (Agri-Entrepreneurship Blueprint)
+                            </h3>
+                            <p class="text-sm text-emerald-100 leading-relaxed max-w-4xl">
+                                விவசாயத்தை வெறும் உற்பத்தித் தொழிலாகப் பார்க்காமல், ஒரு கார்ப்பரேட் நுகர்வோர் பிராண்டாக (D2C Brand) மாற்றுவதற்கான அரிய தொழில் வாய்ப்புகள் கீழே பட்டியலிடப்பட்டுள்ளன. உங்களது 3 ஏக்கரில் விளையும் பொருட்களை மதிப்புக் கூட்டி விற்கும்போது சாதாரண லாபத்தை விட <strong>5 முதல் 10 மடங்கு கூடுதல் லாபம்</strong> பெற முடியும்.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Idea 1: Kalyana Murungai -->
+                            <div class="p-6 bg-emerald-50/50 rounded-2xl border border-emerald-100 shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-2xl bg-emerald-700 text-white flex items-center justify-center font-bold text-xl mb-4">01</div>
+                                    <h4 class="font-bold text-emerald-950 text-lg mb-2">கல்யாண முருங்கை 'உடனடி அடை மிக்ஸ்' (Health Food Tech)</h4>
+                                    <p class="text-xs text-stone-600 leading-relaxed mb-4">
+                                        கல்யாண முருங்கை இலைகள் பெண்களின் PCOD, ஹார்மோன் சீர்கேடுகள் மற்றும் சளி, இருமலுக்கு மிகச்சிறந்த இயற்கை மருந்து. 
+                                        இலையை உலர வைத்து, அரிசி மற்றும் பருப்பு மாவுடன் கலந்து <strong>"Instant Kalyana Murungai Adai Mix"</strong> ஆக பேக் செய்து விற்கலாம்.
+                                    </p>
+                                </div>
+                                <div class="bg-emerald-100/60 p-3 rounded-xl border border-emerald-200">
+                                    <span class="text-[10px] text-emerald-800 uppercase font-bold tracking-wider">உத்தேச லாப வரம்பு:</span>
+                                    <p class="text-base font-bold text-emerald-950">350% - 400%</p>
+                                </div>
+                            </div>
+
+                            <!-- Idea 2: Nutmeg Mace Distillation -->
+                            <div class="p-6 bg-amber-50/50 rounded-2xl border border-amber-100 shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-2xl bg-amber-600 text-white flex items-center justify-center font-bold text-xl mb-4">02</div>
+                                    <h4 class="font-bold text-amber-950 text-lg mb-2">ஜாதிப்பத்திரி பிரீமியம் வாசனைத் தைலம் (Essential Oil)</h4>
+                                    <p class="text-xs text-stone-600 leading-relaxed mb-4">
+                                        ஜாதிப்பத்திரிக்கு உலக அளவில் வாசனைத் திரவிய தயாரிப்பில் பெரும் வரவேற்பு உள்ளது. ஒரு எளிய நீராவிக் காய்ச்சி வடித்தல் (Steam Distillation) கருவி மூலம் ஜாதிப்பத்திரியிலிருந்து <strong>Mace Essential Oil</strong> பிரித்தெடுக்கலாம். இது 10ml சுமார் ₹600 முதல் ₹800 வரை சர்வதேச அளவில் மதிப்பிடப்படுகிறது.
+                                    </p>
+                                </div>
+                                <div class="bg-amber-100/60 p-3 rounded-xl border border-amber-200">
+                                    <span class="text-[10px] text-amber-800 uppercase font-bold tracking-wider">உத்தேச லாப வரம்பு:</span>
+                                    <p class="text-base font-bold text-amber-950">500% (சர்வதேச ஏற்றுமதி)</p>
+                                </div>
+                            </div>
+
+                            <!-- Idea 3: White Pepper Premium -->
+                            <div class="p-6 bg-stone-100/70 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-2xl bg-stone-700 text-white flex items-center justify-center font-bold text-xl mb-4">03</div>
+                                    <h4 class="font-bold text-stone-950 text-lg mb-2">பிரீமியம் 'வெள்ளை மிளகு' (Gourmet White Pepper)</h4>
+                                    <p class="text-xs text-stone-600 leading-relaxed mb-4">
+                                        நன்கு பழுத்த சிவப்பு மிளகுப் பழங்களை அறுவடை செய்து, தண்ணீரில் 8 நாட்கள் ஊறவைத்து, வெளித்தோலை நீக்கி உலர்த்தினால் <strong>White Pepper</strong> தயாராகும். இது ஐரோப்பிய உணவகங்கள் மற்றும் நட்சத்திர ஓட்டல்களில் கிலோ ₹1,800 வரை விற்கப்படும் அரிய வகை பிரீமியம் மசாலா ஆகும்.
+                                    </p>
+                                </div>
+                                <div class="bg-stone-200 p-3 rounded-xl border border-stone-300">
+                                    <span class="text-[10px] text-stone-700 uppercase font-bold tracking-wider">உத்தேச லாப வரம்பு:</span>
+                                    <p class="text-base font-bold text-stone-950">150% (சாதாரண மிளகை விட கூடுதல்)</p>
+                                </div>
+                            </div>
+
+                            <!-- Idea 4: Vengai Diabetic Tumblers -->
+                            <div class="p-6 bg-sky-50 rounded-2xl border border-sky-100 shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-2xl bg-cyan-800 text-white flex items-center justify-center font-bold text-xl mb-4">04</div>
+                                    <h4 class="font-bold text-cyan-950 text-lg mb-2">வேங்கை மர 'சர்க்கரை நோய் கட்டுப்பாடு' குவளை</h4>
+                                    <p class="text-xs text-stone-600 leading-relaxed mb-4">
+                                        வேங்கை மரக் கிளைகளைக் கத்தரிக்கும் போது கிடைக்கும் கட்டைகளைத் துளைத்து <strong>"Vengai Wood Tumbler"</strong> செய்யலாம். இதில் இரவில் தண்ணீர் ஊற்றி வைத்து காலையில் பருகினால் சர்க்கரை நோய் (Diabetes) கட்டுப்படும் என்பதால், ஆன்லைன் வணிகத் தளங்களில் (Amazon / Flipkart) ஒரு குவளை ₹400 வரை விற்கலாம்.
+                                    </p>
+                                </div>
+                                <div class="bg-sky-100/60 p-3 rounded-xl border border-sky-200">
+                                    <span class="text-[10px] text-cyan-800 uppercase font-bold tracking-wider">உத்தேச லாப வரம்பு:</span>
+                                    <p class="text-base font-bold text-cyan-950">400% (பூஜ்ஜிய மூலப்பொருள் செலவு)</p>
+                                </div>
+                            </div>
+
+                            <!-- Idea 5: Mahogany Sky Fruit Capsules -->
+                            <div class="p-6 bg-amber-900/5 rounded-2xl border border-amber-900/10 shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-2xl bg-[#432818] text-white flex items-center justify-center font-bold text-xl mb-4">05</div>
+                                    <h4 class="font-bold text-[#432818] text-lg mb-2">மகாகனி விதைப் பொடி (Sky Fruit Capsules / ஆகாய கனி)</h4>
+                                    <p class="text-xs text-stone-600 leading-relaxed mb-4">
+                                        மகாகனி மரத்தின் விதைகள் சவுத்-ஈஸ்ட் ஆசிய நாடுகளில் <strong>"Sky Fruit"</strong> என அழைக்கப்படுகின்றன. இரத்த அழுத்தத்தைக் குறைக்கவும் சர்க்கரையைச் சீராக்கவும் இந்த விதைப்பொடியை காப்ஸ்யூல்களாக மாற்றி விற்கலாம். உலக அளவில் இயற்கை மருந்து சந்தையில் இதற்கு மிகப்பாரிய தேவை உள்ளது.
+                                    </p>
+                                </div>
+                                <div class="bg-amber-900/10 p-3 rounded-xl border border-amber-900/20">
+                                    <span class="text-[10px] text-[#432818] uppercase font-bold tracking-wider">உத்தேச லாப வரம்பு:</span>
+                                    <p class="text-base font-bold text-[#432818]">300% (ஏற்றுமதி வாய்ப்பு)</p>
+                                </div>
+                            </div>
+
+                            <!-- Idea 6: Triphala Complete Pack -->
+                            <div class="p-6 bg-yellow-50 rounded-2xl border border-yellow-100 shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="w-12 h-12 rounded-2xl bg-yellow-600 text-white flex items-center justify-center font-bold text-xl mb-4">06</div>
+                                    <h4 class="font-bold text-yellow-950 text-lg mb-2">சொந்த பிராண்ட் 'திரிபலா சூரணம்' (Organic Triphala)</h4>
+                                    <p class="text-xs text-stone-600 leading-relaxed mb-4">
+                                        உங்களது எல்லையோர <strong>கடுக்காய் (K)</strong> மற்றும் <strong>தான்றி (T)</strong> ஆகியவற்றைத் தூளாக்கி, அண்டை பண்ணைகளில் இருந்து தரமான <strong>நெல்லிக்காயைக்</strong> கொள்முதல் செய்து 1:1:1 விகிதத்தில் கலந்து <strong>Organic Triphala Powder</strong> ஆக விற்கலாம். உலக ஆயுர்வேத சந்தையில் இதுவே என்றும் அழியாத மாபெரும் தயாரிப்பு.
+                                    </p>
+                                </div>
+                                <div class="bg-yellow-100 p-3 rounded-xl border border-yellow-200">
+                                    <span class="text-[10px] text-yellow-800 uppercase font-bold tracking-wider">உத்தேச லாப வரம்பு:</span>
+                                    <p class="text-base font-bold text-yellow-950">250% (தினசரி நுகர்வுப் பொருள்)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 6 Content: Financials -->
+                    <div id="tab-financials" class="tab-content hidden space-y-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Budget Table -->
+                            <div class="p-6 bg-stone-50 rounded-2xl border border-stone-200">
+                                <h4 class="font-bold text-[#1b4332] mb-4">ஆரம்ப முதலீடு (3 ஏக்கர் - அதி அடர்த்தி)</h4>
+                                <table class="w-full text-sm text-left">
+                                    <tbody class="divide-y text-stone-700">
+                                        <tr><td class="py-2.5">3 ஏக்கர் கன்றுகள் (முள் முருங்கை, ஜாதி, எலுமிச்சை, கறிவேப்பிலை, வேலி மரங்கள்)</td><td class="py-2.5 text-right font-bold">₹2,80,000</td></tr>
+                                        <tr><td class="py-2.5">குழி எடுத்தல் மற்றும் நடவு கூலி</td><td class="py-2.5 text-right font-bold">₹1,40,000</td></tr>
+                                        <tr><td class="py-2.5">சொட்டுநீர்ப் பாசன அமைப்பு (Drip)</td><td class="py-2.5 text-right font-bold">₹80,000</td></tr>
+                                        <tr><td class="py-2.5">இயற்கை உரங்கள் &amp; வடிகால் வாய்க்கால் பணிகள்</td><td class="py-2.5 text-right font-bold">₹85,000</td></tr>
+                                        <tr class="font-bold text-base text-[#1b4332]"><td class="py-3">மொத்த முதலீடு</td><td class="py-3 text-right">₹5,85,000</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Income Projection -->
+                            <div class="p-6 bg-stone-50 rounded-2xl border border-stone-200">
+                                <h4 class="font-bold text-[#1b4332] mb-4">உத்தேச ஆண்டு வருமானம் (8-ம் ஆண்டிற்குப் பிறகு)</h4>
+                                <table class="w-full text-sm text-left">
+                                    <tbody class="divide-y text-stone-700">
+                                        <tr><td class="py-2.5">கருமிளகு (284 முள் முருங்கை மரங்கள் - ~1,136 கொடிகள்)</td><td class="py-2.5 text-right font-bold">₹14,00,000</td></tr>
+                                        <tr><td class="py-2.5">ஜாதிக்காய் (307 மரங்கள் - காய்கள் + பத்திரி)</td><td class="py-2.5 text-right font-bold">₹9,20,000</td></tr>
+                                        <tr><td class="py-2.5">கருவேப்பிலை &amp; எலுமிச்சை (மின்பாதை அடியில்)</td><td class="py-2.5 text-right font-bold">₹2,20,000</td></tr>
+                                        <tr><td class="py-2.5">எல்லையோர வேங்கை மர மதிப்பு (ஆண்டுப் பங்கு மதிப்பில்)</td><td class="py-2.5 text-right font-bold">₹3,00,000</td></tr>
+                                        <tr class="font-bold text-base text-[#1b4332]"><td class="py-3">மொத்த உத்தேச வருமானம்</td><td class="py-3 text-right">₹28,40,000</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('masterCanvas');
+        const ctx = canvas.getContext('2d');
+        const zoomInput = document.getElementById('zoomCtrl');
+        const container = document.getElementById('canvasBox');
+
+        const COLORS = {
+            support: '#70e000', // S - Mul Murungai
+            nutmeg: '#ffb703', // N - Nutmeg
+            mahogany: '#432818',
+            kadukkai: '#854d0e',
+            thandri: '#b45309',
+            vengai: '#155e75',
+            curry: '#db2777',
+            lemon: '#eab308',
+            soil: '#fcfaf7',
+            dim: '#78716c',
+            power: '#fb923c'
+        };
+
+        // Zoom, Drag & Pan State (Only single declaration of variables)
+        let scale = 0.75;
+        let panX = 0;
+        let panY = 0;
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+
+        function initCanvasSize() {
+            canvas.width = 1100;
+            canvas.height = 950;
+        }
+
+        function drawMap() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            
+            // Center scaling & translation
+            ctx.translate(canvas.width / 2 + panX, canvas.height / 2 + panY);
+            ctx.scale(scale, scale);
+            ctx.translate(-canvas.width / 2, -canvas.height / 2);
+
+            const s = 8.8; // Pixels per meter scale factor
+            const ox = 150;
+            const oy = 120;
+
+            // FMB Boundary Polygon
+            const points = [
+                {x: ox, y: oy}, 
+                {x: ox + 103.4 * s, y: oy}, 
+                {x: ox + 103.4 * s, y: oy + 101.8 * s}, 
+                {x: ox + (103.4 - 22) * s, y: oy + (101.8 + 36.2) * s}, 
+                {x: ox + (103.4 - 22 - 105.0) * s, y: oy + (101.8 + 18) * s}, 
+                {x: ox + 8 * s, y: oy + 21.2 * s}
+            ];
+
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            points.forEach(p => ctx.lineTo(p.x, p.y));
+            ctx.closePath();
+            ctx.fillStyle = COLORS.soil;
+            ctx.fill();
+            ctx.strokeStyle = '#44403c';
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+            // Draw Triple-Row Border (Mahogany, Alternating Kadukkai/Thandri, Vengai)
+            points.forEach((p, i) => {
+                const pNext = points[(i + 1) % points.length];
+                const dist = Math.sqrt(Math.pow(pNext.x - p.x, 2) + Math.pow(pNext.y - p.y, 2));
+                const spacing = 4.2 * s; // Clear spacing between triple border nodes
+                const count = Math.floor(dist / spacing);
+                
+                const dx = pNext.x - p.x;
+                const dy = pNext.y - p.y;
+                const len = Math.sqrt(dx*dx + dy*dy);
+                const nx = -dy / len;
+                const ny = dx / len;
+
+                for(let j=0; j<count; j++) {
+                    const tx = p.x + (pNext.x - p.x) * (j / count);
+                    const ty = p.y + (pNext.y - p.y) * (j / count);
+                    
+                    // Row 1 (Outer): Mahogany (M)
+                    drawMarkedTree(tx, ty, COLORS.mahogany, 'M', 11);
+                    
+                    // Row 2 (Middle): Alternating Kadukkai (K) and Thandri (T)
+                    let middleLetter = (j % 2 === 0) ? 'K' : 'T';
+                    let middleColor = (j % 2 === 0) ? COLORS.kadukkai : COLORS.thandri;
+                    drawMarkedTree(tx + nx * 2.8 * s, ty + ny * 2.8 * s, middleColor, middleLetter, 11);
+                    
+                    // Row 3 (Inner): Vengai (V) instead of Pungam
+                    drawMarkedTree(tx + nx * 5.6 * s, ty + ny * 5.6 * s, COLORS.vengai, 'V', 11);
+                }
+            });
+
+            // Draw Power Line Curve
+            const pStart = { x: ox + 103.4 * s, y: oy + 20 };
+            const pEnd = { x: points[4].x + 20, y: points[4].y - 30 };
+            const pCtrl = { x: ox + 50 * s, y: oy + 70 * s };
+            ctx.beginPath(); ctx.setLineDash([18, 15]); ctx.strokeStyle = COLORS.power; ctx.lineWidth = 6;
+            ctx.moveTo(pStart.x, pStart.y); ctx.quadraticCurveTo(pCtrl.x, pCtrl.y, pEnd.x, pEnd.y); ctx.stroke(); ctx.setLineDash([]);
+
+            // Hexagonal Internal Cultivation Layout (S, N, C, L) - DENSE SPACING (No Wagon Road)
+            const rGap = 4.2 * s; // Row spacing: 4.2m
+            const tGap = 3.0 * s; // Tree spacing: 3.0m
+            let rX = 0, rY = 0;
+
+            for(let r=0; r<26; r++) { 
+                const offX = (r % 2 === 0) ? 0 : tGap / 2; // Hexagonal staggering offset
+                for(let c=0; c<32; c++) { 
+                    const fx = ox + 35 * s + (c * tGap) + offX;
+                    const fy = oy + 35 * s + (r * rGap);
+
+                    if (ctx.isPointInPath(fx, fy)) {
+                        let minDist = 1000;
+                        points.forEach((p, idx) => {
+                            let p2 = points[(idx + 1) % points.length];
+                            let d = Math.abs((p2.y - p.y) * fx - (p2.x - p.x) * fy + p2.x * p.y - p2.y * p.x) / 
+                                    Math.sqrt(Math.pow(p2.y - p.y, 2) + Math.pow(p2.x - p.x, 2));
+                            if (d < minDist) minDist = d;
+                        });
+
+                        // NO WAGON PATH BUFFER: Grid starts immediately at 9.0m from the boundary (4.2m from Vengai Row)
+                        if (minDist > 9.0 * s) { 
+                            const t = (fx - pEnd.x) / (pStart.x - pEnd.x);
+                            const curveY = Math.pow(1-t, 2) * pEnd.y + 2 * (1-t) * t * pCtrl.y + Math.pow(t, 2) * pStart.y;
+                            
+                            if (Math.abs(fy - curveY) < 35) {
+                                // Powerline safe path: Alternating Curry Leaves (C) and Lemon (L) (NO TALL TREES - NO TALL SUPPORT / NO NUTMEG)
+                                if ((r+c) % 2 === 0) {
+                                    drawMarkedTree(fx, fy, COLORS.curry, 'C', 15);
+                                } else {
+                                    drawMarkedTree(fx, fy, COLORS.lemon, 'L', 15);
+                                }
+                            } else {
+                                // Standard Hexagonal Matrix Main Blocks (Pure S and N alternating rows)
+                                if (r % 2 === 0) {
+                                    // Primary row: All Mul Murungai (S)
+                                    drawMarkedTree(fx, fy, COLORS.support, 'S', 16);
+                                } else {
+                                    // Intercrop row: All Nutmeg (N)
+                                    drawMarkedTree(fx, fy, COLORS.nutmeg, 'N', 16);
+                                }
+                            }
+                            
+                            if (r === 10 && c === 8) { rX = fx; rY = fy; }
+                        }
+                    }
+                }
+            }
+
+            // Visible Field Rulers for Layout Reference
+            if (rX > 0) {
+                ctx.strokeStyle = '#000000'; ctx.lineWidth = 3.5; ctx.fillStyle = '#000000'; ctx.font = 'bold 13px Arial';
+                drawDimension(rX, rY - 30, rX + tGap, rY - 30, '3.0m Gap');
+                drawVerticalDimension(rX - 65, rY, rX - 65, rY + rGap, '4.2m Row Gap');
+                drawDimension(rX, rY + rGap + 25, rX + tGap/2, rY + rGap + 25, '1.5m Stagger');
+                
+                // Draw Triple-Row Boundary Spacing dimension guide specifically
+                const boundarySampleX = ox + 220;
+                const boundarySampleY = oy;
+                
+                // Mahogany (Row 1) to Kadukkai/Thandri (Row 2): 2.8m
+                drawVerticalDimension(boundarySampleX, boundarySampleY, boundarySampleX, boundarySampleY + 2.8 * s, '2.8m M <-> K/T');
+                // Kadukkai/Thandri (Row 2) to Vengai (Row 3): 2.8m
+                drawVerticalDimension(boundarySampleX, boundarySampleY + 2.8 * s, boundarySampleX, boundarySampleY + 5.6 * s, '2.8m K/T <-> V');
+                // Vengai (Row 3) to the inner crop row start: 4.2m (NO ROAD BUFFER!)
+                drawVerticalDimension(boundarySampleX, boundarySampleY + 5.6 * s, boundarySampleX, boundarySampleY + 9.8 * s, '4.2m Crop Gap');
+                // Distance along the outer boundary Mahogany line: 4.2m
+                drawDimension(boundarySampleX, boundarySampleY - 35, boundarySampleX + 4.2 * s, boundarySampleY - 35, '4.2m Border Spacing');
+
+                ctx.font = 'bold 16px Arial';
+                ctx.fillText('அறுகோண சாகுபடி மாதிரி (Hexagonal Grid Cluster)', rX - 50, rY + rGap + 70);
+            }
+
+            // Boundary labels
+            ctx.fillStyle = COLORS.dim; ctx.font = 'bold 13px Arial'; ctx.textAlign = 'center';
+            ctx.fillText('NORTH: 103.4m', ox + 50 * s, oy - 25);
+            ctx.fillText('EAST: 101.8m', points[1].x + 75, points[1].y + 50 * s);
+            ctx.fillText('SOUTH: 105.0m', points[4].x + 50 * s, points[4].y + 45);
+            ctx.fillStyle = '#111827'; ctx.font = 'bold 24px Arial';
+            ctx.fillText('↑ NORTH', points[1].x + 60, points[1].y - 25);
+
+            ctx.restore();
+        }
+
+        // Helper function to draw marked trees
+        function drawMarkedTree(x, y, color, letter, radius) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            
+            ctx.fillStyle = (color === '#ffb703' || color === '#eab308' || color === '#70e000') ? '#000000' : '#ffffff'; 
+            ctx.font = '900 ' + (radius * 1.15) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(letter, x, y + 0.5);
+        }
+
+        function drawDimension(x1, y1, x2, y2, label) {
+            ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y1);
+            ctx.moveTo(x1, y1-6); ctx.lineTo(x1, y1+6); ctx.moveTo(x2, y1-6); ctx.lineTo(x2, y1+6);
+            ctx.stroke(); ctx.fillText(label, (x1+x2)/2, y1-10);
+        }
+
+        function drawVerticalDimension(x1, y1, x2, y2, label) {
+            ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x1, y2);
+            ctx.moveTo(x1-6, y1); ctx.lineTo(x1+6, y1); ctx.moveTo(x1-6, y2); ctx.lineTo(x1+6, y2);
+            ctx.stroke(); ctx.save(); ctx.translate(x1-15, (y1+y2)/2); ctx.rotate(-Math.PI/2); ctx.textAlign='center'; ctx.fillText(label, 0, 0); ctx.restore();
+        }
+
+        // Drag, Move and Pan Logic
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX - panX;
+            startY = e.clientY - panY;
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            panX = e.clientX - startX;
+            panY = e.clientY - startY;
+            drawMap();
+        });
+
+        // Touch logic for mobile screens
+        container.addEventListener('touchstart', (e) => {
+            if(e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - panX;
+                startY = e.touches[0].clientY - panY;
+            }
+        });
+
+        container.addEventListener('touchend', () => { isDragging = false; });
+
+        container.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            panX = e.touches[0].clientX - startX;
+            panY = e.touches[0].clientY - startY;
+            drawMap();
+        });
+
+        zoomInput.addEventListener('input', () => {
+            scale = parseFloat(zoomInput.value);
+            drawMap();
+        });
+
+        function resetView() {
+            scale = 0.75;
+            panX = 0;
+            panY = 0;
+            zoomInput.value = 0.75;
+            drawMap();
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId.replace('tab-', '')).classList.add('active');
+        }
+
+        // Initial launch
+        initCanvasSize();
+        drawMap();
+        setTimeout(drawMap, 300); // Overlay refresh pass
+    </script>
+</body>
+</html>
